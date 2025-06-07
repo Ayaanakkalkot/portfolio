@@ -170,60 +170,61 @@ const Contact = () => {
           </motion.h2>
           
           <motion.div 
-            className="mb-12 space-y-4"
+            className="mb-12 flex items-center justify-center gap-8 flex-wrap"
             variants={staggerContainer}
           >
-            <motion.p 
-              className="text-xl"
-              variants={fadeInUp}
+            <motion.a 
+              href="mailto:ayaanakkalkot540@gmail.com" 
+              className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <motion.a 
-                href="mailto:ayaanakkalkot540@gmail.com" 
-                className="text-purple-400 hover:text-purple-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                ayaanakkalkot540@gmail.com
-              </motion.a>
-            </motion.p>
-            <motion.p 
-              className="text-xl"
-              variants={fadeInUp}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+              </svg>
+              <span>ayaanakkalkot540@gmail.com</span>
+            </motion.a>
+
+            <motion.a 
+              href="tel:+918217636776" 
+              className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <motion.a 
-                href="tel:+918217636776" 
-                className="text-purple-400 hover:text-purple-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                +91 8217636776
-              </motion.a>
-            </motion.p>
-            <motion.div 
-              className="flex justify-center gap-6"
-              variants={staggerContainer}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
+              </svg>
+              <span>+91 8217636776</span>
+            </motion.a>
+
+            <motion.a 
+              href="https://linkedin.com/in/ayaan-akkalkot-79a33a29a" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-xl"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <motion.a 
-                href="https://linkedin.com/in/ayaan-akkalkot-79a33a29a" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-400 hover:text-purple-300"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                LinkedIn
-              </motion.a>
-              <motion.a 
-                href="https://github.com/Ayaanakkalkot" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-purple-400 hover:text-purple-300"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                GitHub
-              </motion.a>
-            </motion.div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
+              </svg>
+              <span>LinkedIn</span>
+            </motion.a>
+
+            <motion.a 
+              href="https://github.com/Ayaanakkalkot" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-xl"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.606 9.606 0 0112 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48C19.137 20.107 22 16.373 22 11.969 22 6.463 17.522 2 12 2z" clipRule="evenodd" />
+              </svg>
+              <span>GitHub</span>
+            </motion.a>
           </motion.div>
 
           <motion.div 
