@@ -162,7 +162,7 @@ const Hero: React.FC<HeroProps> = () => {
             className="text-gray-400 mb-4"
             variants={fadeInUp}
           >
-            Currently pursuing B.E in CSE (AI & ML) at{' '}
+            Recent B.E graduate in CSE (AI & ML) at{' '}
             <motion.a 
               href="#" 
               className="text-blue-400 hover:text-blue-300 relative"
@@ -182,6 +182,7 @@ const Hero: React.FC<HeroProps> = () => {
                 }}
               />
             </motion.a>
+            , aggregating a CGPA of 8.83.
           </motion.p>
           <motion.p 
             className="text-gray-400 max-w-2xl mx-auto"

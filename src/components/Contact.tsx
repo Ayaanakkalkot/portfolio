@@ -204,7 +204,7 @@ const Contact = () => {
               variants={staggerContainer}
             >
               <motion.a 
-                href="https://linkedin.com/in/ayaanakkalkot" 
+                href="https://linkedin.com/in/ayaan-akkalkot-79a33a29a" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-400 hover:text-purple-300"
