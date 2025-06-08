@@ -131,10 +131,10 @@ const Hero: React.FC<HeroProps> = () => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
             variants={fadeInUp}
           >
-            Judges a model
+            Judges a model{" "}
             <br className="sm:hidden" />
             <span className="inline-block">
-              by its <span className="text-purple-500 relative">
+              <span className="ml-0 sm:ml-3">by</span> its <span className="text-purple-500 relative">
                 metrics
                 <motion.span
                   className="absolute inset-0 bg-purple-500/20 blur-lg -z-10"
