@@ -43,14 +43,14 @@ const Hero: React.FC<HeroProps> = () => {
 
   return (
     <motion.section 
-      className="relative"
+      className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 py-12 sm:py-20"
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
     >
       {/* Enhanced glow effects */}
       <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -84,49 +84,51 @@ const Hero: React.FC<HeroProps> = () => {
           }}
         />
       </motion.div>
-      
-      <div className="relative z-10">
+
+      <div className="relative z-10 container mx-auto max-w-7xl">
         {/* Intro text */}
         <motion.div 
-          className="text-center mb-8"
+          className="text-center mb-8 sm:mb-12"
           variants={staggerContainer}
         >
           <motion.p 
-            className="text-lg mb-2"
+            className="text-base sm:text-lg mb-2"
             variants={fadeInUp}
           >
             Hello! I Am <span className="text-purple-500">Ayaan Akkalkot</span>
           </motion.p>
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4"
             variants={fadeInUp}
           >
             A Data Scientist who
           </motion.h1>
           <motion.div 
-            className="text-4xl md:text-6xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
             variants={fadeInUp}
           >
             Judges a model
-            <br />
-            by its <span className="text-purple-500 relative">
-              metrics
-              <motion.span
-                className="absolute inset-0 bg-purple-500/20 blur-lg -z-10"
-                animate={{
-                  opacity: [0.5, 1, 0.5],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </span>...
+            <br className="sm:hidden" />
+            <span className="inline-block">
+              by its <span className="text-purple-500 relative">
+                metrics
+                <motion.span
+                  className="absolute inset-0 bg-purple-500/20 blur-lg -z-10"
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </span>...
+            </span>
           </motion.div>
           <motion.p 
-            className="text-gray-400"
+            className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto"
             variants={fadeInUp}
           >
             Because if the metrics don't impress you, what else can?
@@ -135,7 +137,7 @@ const Hero: React.FC<HeroProps> = () => {
 
         {/* 3D Image with enhanced effects */}
         <motion.div 
-          className="flex justify-center mb-16 perspective-1000"
+          className="flex justify-center mb-8 sm:mb-16 perspective-1000"
           variants={fadeInUp}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
@@ -146,7 +148,7 @@ const Hero: React.FC<HeroProps> = () => {
           }}
         >
           <motion.div 
-            className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 transform-gpu"
+            className="relative w-40 h-40 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 transform-gpu"
             style={{
               rotateX: rotateX,
               rotateY: rotateY,
@@ -160,7 +162,7 @@ const Hero: React.FC<HeroProps> = () => {
           >
             {/* 3D floating effect layers */}
             <motion.div
-              className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
+              className="absolute -inset-3 xs:-inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
               style={{
                 transform: "translateZ(-40px)",
               }}
@@ -178,7 +180,7 @@ const Hero: React.FC<HeroProps> = () => {
 
             {/* Constant white glow */}
             <motion.div 
-              className="absolute -inset-3 sm:-inset-4 md:-inset-6 bg-white/20 rounded-full blur-3xl"
+              className="absolute -inset-2 xs:-inset-3 sm:-inset-4 md:-inset-6 bg-white/20 rounded-full blur-3xl"
               style={{ transform: "translateZ(-20px)" }}
               animate={{
                 opacity: [0.2, 0.3, 0.2],
@@ -189,43 +191,6 @@ const Hero: React.FC<HeroProps> = () => {
                 ease: "easeInOut",
               }}
             />
-            
-            {/* Sparkle effects */}
-            <motion.div
-              className="absolute -inset-8 overflow-hidden"
-              style={{ transform: "translateZ(-10px)" }}
-              animate={{
-                rotate: [-5, 5, -5],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {[...Array(6)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-white rounded-full"
-                  style={{
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                    transform: "translateZ(10px)",
-                  }}
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 1, 0],
-                    y: [0, -20, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    delay: i * 0.4,
-                    ease: "easeInOut",
-                  }}
-                />
-              ))}
-            </motion.div>
 
             {/* Image container with 3D effect */}
             <motion.div
@@ -270,7 +235,6 @@ const Hero: React.FC<HeroProps> = () => {
                 }}
               />
             </motion.div>
-
           </motion.div>
         </motion.div>
 
