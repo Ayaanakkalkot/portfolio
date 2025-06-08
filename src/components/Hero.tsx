@@ -2,6 +2,30 @@ import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useAnimation } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../utils/animations';
 
+// Add sparkle component
+const Sparkle = ({ className = "", style = {}, delay = 0, size = "8" }) => {
+  return (
+    <motion.div
+      className={`absolute rounded-full bg-white/80 blur-[1px] ${className}`}
+      style={{
+        width: size + 'px',
+        height: size + 'px',
+        ...style
+      }}
+      animate={{
+        scale: [0.5, 1.2, 0.5],
+        opacity: [0.3, 0.8, 0.3],
+      }}
+      transition={{
+        duration: 2 + Math.random(),
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+  );
+};
+
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = () => {
@@ -147,99 +171,89 @@ const Hero: React.FC<HeroProps> = () => {
             mouseY.set(0);
           }}
         >
-          <motion.div 
-            className="relative w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 transform-gpu aspect-square p-0.5"
-            style={{
-              rotateX: rotateX,
-              rotateY: rotateY,
-              transformStyle: "preserve-3d",
-            }}
-            animate={{
-              ...floatingAnimation,
-              scale: isHovered ? 1.05 : floatingAnimation.scale,
-            }}
-            transition={floatingTransition}
-          >
-            {/* 3D floating effect layers */}
-            <motion.div
-              className="absolute -inset-2 xs:-inset-3 sm:-inset-4 md:-inset-6 lg:-inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
-              style={{
-                transform: "translateZ(-40px)",
-              }}
-              animate={{
-                rotate: [0, 360],
-                scale: isHovered ? 1.1 : [1, 1.05, 1],
-              }}
-              transition={{
-                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                scale: isHovered 
-                  ? { duration: 0.3 }
-                  : { duration: 6, repeat: Infinity, ease: "easeInOut" }
-              }}
-            />
+          <div className="relative w-[140px] h-[140px] xs:w-[160px] xs:h-[160px] sm:w-[180px] sm:h-[180px] md:w-[220px] md:h-[220px] lg:w-[240px] lg:h-[240px] xl:w-[260px] xl:h-[260px]">
+            {/* Add sparkles */}
+            <Sparkle className="top-0 left-1/4" size="4" delay={0} />
+            <Sparkle className="top-1/4 -left-1" size="6" delay={0.5} />
+            <Sparkle className="top-1/2 -right-1" size="3" delay={1.0} />
+            <Sparkle className="bottom-1/4 left-0" size="5" delay={1.5} />
+            <Sparkle className="bottom-0 right-1/4" size="4" delay={0.2} />
+            <Sparkle className="-top-1 right-1/3" size="6" delay={0.7} />
+            <Sparkle className="top-1/3 -right-2" size="3" delay={1.2} />
+            <Sparkle className="bottom-1/3 -left-2" size="5" delay={1.7} />
+            <Sparkle className="top-2/3 right-0" size="4" delay={0.3} />
+            <Sparkle className="-bottom-1 left-1/3" size="3" delay={0.9} />
+            <Sparkle className="bottom-2/3 -right-1" size="5" delay={1.4} />
+            <Sparkle className="-top-2 left-1/2" size="4" delay={0.6} />
 
-            {/* Constant white glow */}
             <motion.div 
-              className="absolute -inset-2 xs:-inset-3 sm:-inset-4 md:-inset-6 bg-white/20 rounded-full blur-3xl"
-              style={{ transform: "translateZ(-20px)" }}
-              animate={{
-                opacity: [0.2, 0.3, 0.2],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Image container with 3D effect */}
-            <motion.div
-              className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20 bg-purple-900/20"
+              className="relative w-full h-full transform-gpu"
               style={{
-                transform: "translateZ(0px)",
+                rotateX: rotateX,
+                rotateY: rotateY,
+                transformStyle: "preserve-3d",
               }}
+              animate={{
+                ...floatingAnimation,
+                scale: isHovered ? 1.05 : floatingAnimation.scale,
+              }}
+              transition={floatingTransition}
             >
-              <motion.img
-                src="/images/Ayaan Akkalkot.png"
-                alt="Ayaan Akkalkot"
-                className="w-full h-full object-cover object-center scale-[1.02]"
+              {/* Image container with 3D effect */}
+              <motion.div
+                className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20 bg-purple-900/20"
                 style={{
-                  objectFit: "cover",
-                  objectPosition: "center 10%"
+                  transform: "translateZ(0px)",
                 }}
+              >
+                <motion.img
+                  src="/images/Ayaan Akkalkot.png"
+                  alt="Ayaan Akkalkot"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center 20%",
+                    transform: "scale(1.15)",
+                  }}
+                  animate={{
+                    scale: isHovered ? 1.25 : 1.15,
+                  }}
+                  transition={isHovered 
+                    ? { duration: 0.3 }
+                    : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+                  }
+                />
+              </motion.div>
+
+              {/* Glow effects */}
+              <motion.div
+                className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl -z-10"
                 animate={{
+                  rotate: [0, 360],
                   scale: isHovered ? 1.1 : [1, 1.05, 1],
                 }}
-                transition={isHovered 
-                  ? { duration: 0.3 }
-                  : { duration: 6, repeat: Infinity, ease: "easeInOut" }
-                }
-              />
-              
-              {/* Interactive shine effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0"
-                style={{
-                  transform: "translateZ(20px)",
-                  mixBlendMode: "overlay",
+                transition={{
+                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                  scale: isHovered 
+                    ? { duration: 0.3 }
+                    : { duration: 6, repeat: Infinity, ease: "easeInOut" }
                 }}
+              />
+
+              {/* White glow */}
+              <motion.div 
+                className="absolute -inset-2 bg-white/20 rounded-full blur-3xl -z-5"
                 animate={{
-                  opacity: isHovered ? 0.5 : [0.2, 0.3, 0.2],
-                  backgroundPosition: ["0% 0%", "100% 100%"],
+                  opacity: [0.2, 0.3, 0.2],
                 }}
                 transition={{
-                  opacity: isHovered 
-                    ? { duration: 0.3 }
-                    : { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                  backgroundPosition: {
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
                 }}
               />
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Education & Skills section with glow effects */}
