@@ -1,10 +1,46 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, useAnimation } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../utils/animations';
 
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Motion values for cursor interaction
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth spring animation config
+  const springConfig = { damping: 15, stiffness: 150 };
+
+  // Create smooth values for rotation
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+
+  // Continuous floating animation
+  const floatingAnimation = {
+    y: [0, -20, 0],
+    rotateZ: [-2, 2, -2],
+    scale: [1, 1.02, 1],
+  };
+
+  const floatingTransition = {
+    duration: 6,
+    repeat: Infinity,
+    ease: "easeInOut",
+  };
+
+  // Handle mouse move on the container
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const centerX = (event.clientX - rect.left) / rect.width - 0.5;
+    const centerY = (event.clientY - rect.top) / rect.height - 0.5;
+    
+    mouseX.set(centerX);
+    mouseY.set(centerY);
+  };
+
   return (
     <motion.section 
       className="relative"
@@ -25,8 +61,28 @@ const Hero: React.FC<HeroProps> = () => {
           ease: "easeInOut",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-radial from-purple-600/20 via-purple-600/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-radial from-blue-600/20 via-blue-600/10 to-transparent rounded-full blur-3xl transform rotate-45" />
+        <motion.div 
+          className="absolute inset-0 bg-gradient-radial from-purple-600/20 via-purple-600/10 to-transparent rounded-full blur-3xl"
+          animate={{
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+        <motion.div 
+          className="absolute inset-0 bg-gradient-radial from-blue-600/20 via-blue-600/10 to-transparent rounded-full blur-3xl transform"
+          animate={{
+            rotate: [360, 0],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
       </motion.div>
       
       <div className="relative z-10">
@@ -77,24 +133,75 @@ const Hero: React.FC<HeroProps> = () => {
           </motion.p>
         </motion.div>
 
-        {/* Image with enhanced effects */}
+        {/* 3D Image with enhanced effects */}
         <motion.div 
-          className="flex justify-center mb-16"
+          className="flex justify-center mb-16 perspective-1000"
           variants={fadeInUp}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            mouseX.set(0);
+            mouseY.set(0);
+          }}
         >
           <motion.div 
-            className="relative w-64 h-64"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
+            className="relative w-64 h-64 transform-gpu"
+            style={{
+              rotateX: rotateX,
+              rotateY: rotateY,
+              transformStyle: "preserve-3d",
+            }}
+            animate={{
+              ...floatingAnimation,
+              scale: isHovered ? 1.05 : floatingAnimation.scale,
+            }}
+            transition={floatingTransition}
           >
+            {/* 3D floating effect layers */}
+            <motion.div
+              className="absolute -inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
+              style={{
+                transform: "translateZ(-40px)",
+              }}
+              animate={{
+                rotate: [0, 360],
+                scale: isHovered ? 1.1 : [1, 1.05, 1],
+              }}
+              transition={{
+                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                scale: isHovered 
+                  ? { duration: 0.3 }
+                  : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+              }}
+            />
+
             {/* Constant white glow */}
-            <div className="absolute -inset-6 bg-white/20 rounded-full blur-3xl" />
+            <motion.div 
+              className="absolute -inset-6 bg-white/20 rounded-full blur-3xl"
+              style={{ transform: "translateZ(-20px)" }}
+              animate={{
+                opacity: [0.2, 0.3, 0.2],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
             
             {/* Sparkle effects */}
             <motion.div
               className="absolute -inset-8 overflow-hidden"
-              initial="hidden"
-              animate="visible"
+              style={{ transform: "translateZ(-10px)" }}
+              animate={{
+                rotate: [-5, 5, -5],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               {[...Array(6)].map((_, i) => (
                 <motion.div
@@ -103,13 +210,15 @@ const Hero: React.FC<HeroProps> = () => {
                   style={{
                     top: `${Math.random() * 100}%`,
                     left: `${Math.random() * 100}%`,
+                    transform: "translateZ(10px)",
                   }}
                   animate={{
                     scale: [0, 1, 0],
                     opacity: [0, 1, 0],
+                    y: [0, -20, 0],
                   }}
                   transition={{
-                    duration: 2,
+                    duration: 3,
                     repeat: Infinity,
                     delay: i * 0.4,
                     ease: "easeInOut",
@@ -118,20 +227,50 @@ const Hero: React.FC<HeroProps> = () => {
               ))}
             </motion.div>
 
-            {/* Secondary white glow */}
-            <div className="absolute -inset-4 bg-white/15 rounded-full blur-2xl" />
-
-            {/* Image */}
-            <div className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20">
-              <img
+            {/* Image container with 3D effect */}
+            <motion.div 
+              className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20"
+              style={{
+                transform: "translateZ(0px)",
+              }}
+            >
+              <motion.img
                 src="/images/Ayaan Akkalkot.png"
                 alt="Ayaan Akkalkot"
                 className="w-full h-full object-cover"
+                animate={{
+                  scale: isHovered ? 1.1 : [1, 1.05, 1],
+                }}
+                transition={isHovered 
+                  ? { duration: 0.3 }
+                  : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+                }
               />
-            </div>
+              
+              {/* Interactive shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0"
+                style={{
+                  transform: "translateZ(20px)",
+                  mixBlendMode: "overlay",
+                }}
+                animate={{
+                  opacity: isHovered ? 0.5 : [0.2, 0.3, 0.2],
+                  backgroundPosition: ["0% 0%", "100% 100%"],
+                }}
+                transition={{
+                  opacity: isHovered 
+                    ? { duration: 0.3 }
+                    : { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                  backgroundPosition: {
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }
+                }}
+              />
+            </motion.div>
 
-            {/* Subtle white overlay */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent" />
           </motion.div>
         </motion.div>
 

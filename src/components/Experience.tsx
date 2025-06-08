@@ -2,7 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer, scaleOnHover } from '../utils/animations';
 
-const SkillCard = ({ title, skills }: { title: string; skills: string[] }) => (
+interface Skill {
+  name: string;
+  icon: string;
+}
+
+interface SkillCategory {
+  title: string;
+  skills: Skill[];
+}
+
+const SkillCard = ({ title, skills }: SkillCategory) => (
   <motion.div 
     className="bg-[#2A1B3D] rounded-xl p-6 hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] transition-all duration-300"
     variants={fadeInUp}
@@ -15,22 +25,52 @@ const SkillCard = ({ title, skills }: { title: string; skills: string[] }) => (
       {title}
     </motion.h3>
     <motion.div 
-      className="flex flex-wrap gap-2"
+      className="flex flex-wrap gap-4 justify-center"
       variants={staggerContainer}
     >
       {skills.map((skill, index) => (
-        <motion.span 
+        <motion.div
           key={index} 
-          className="px-3 py-1 bg-purple-900/50 rounded-full text-sm text-purple-200"
+          className="group flex flex-col items-center w-24"
           variants={fadeInUp}
           whileHover={{
-            scale: 1.05,
-            backgroundColor: "rgba(139,92,246,0.4)"
+            scale: 1.1,
+            transition: { duration: 0.2 }
           }}
-          transition={{ duration: 0.2 }}
         >
-          {skill}
-        </motion.span>
+          {/* Icon Container */}
+          <motion.div 
+            className="w-12 h-12 rounded-lg bg-purple-900/50 p-2 flex items-center justify-center relative overflow-hidden group-hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] mb-2"
+            whileHover={{
+              backgroundColor: "rgba(139,92,246,0.4)"
+            }}
+          >
+            {/* Glow Effect */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 opacity-0 group-hover:opacity-100"
+              animate={{
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            
+            {/* Icon */}
+            <img
+              src={skill.icon}
+              alt={skill.name}
+              className="w-8 h-8 relative z-10 object-contain"
+            />
+          </motion.div>
+          
+          {/* Skill Name - Always visible */}
+          <span className="text-xs text-gray-300 text-center">
+            {skill.name}
+          </span>
+        </motion.div>
       ))}
     </motion.div>
   </motion.div>
@@ -90,12 +130,43 @@ const ExperienceCard = ({ role, company, period, achievements }: {
 );
 
 const Experience = () => {
-  const skills = {
-    "Programming Languages": ["Python", "SQL"],
-    "Tools & Platforms": ["Jupyter Notebook", "VS Code", "Git/GitHub", "MySQL", "Power BI", "MS Excel"],
-    "Python Libraries": ["NumPy", "Pandas", "Matplotlib", "Seaborn", "Scikit-learn", "SciPy", "PySpark", "TensorFlow", "PyTorch"],
-    "Data Science": ["Time Series Analysis", "Forecasting", "Feature Engineering", "Data Visualization"],
-    "Soft Skills": ["Problem-Solving", "Critical Thinking", "Communication", "Attention to Detail"]
+  const skills: Record<string, Skill[]> = {
+    "Programming Languages": [
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" }
+    ],
+    "Tools & Platforms": [
+      { name: "Jupyter Notebook", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
+      { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+      { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+      { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+      { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+      { name: "Power BI", icon: "https://www.vectorlogo.zone/logos/microsoft_powerbi/microsoft_powerbi-icon.svg" },
+      { name: "MS Excel", icon: "https://img.icons8.com/color/48/microsoft-excel-2019--v1.png" }
+    ],
+    "Python Libraries": [
+      { name: "NumPy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
+      { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+      { name: "Matplotlib", icon: "https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg" },
+      { name: "Seaborn", icon: "https://raw.githubusercontent.com/mwaskom/seaborn/master/doc/_static/logo-mark-lightbg.svg" },
+      { name: "Scikit-learn", icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" },
+      { name: "SciPy", icon: "https://images.seeklogo.com/logo-png/44/1/scipy-logo-png_seeklogo-441155.png" },
+      { name: "PySpark", icon: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg" },
+      { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+      { name: "PyTorch", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" }
+    ],
+    "Data Science": [
+      { name: "Time Series Analysis", icon: "https://cdn-icons-png.flaticon.com/512/2784/2784459.png" },
+      { name: "Forecasting", icon: "https://cdn-icons-png.flaticon.com/512/6361/6361249.png" },
+      { name: "Feature Engineering", icon: "https://cdn-icons-png.flaticon.com/512/2103/2103633.png" },
+      { name: "Data Visualization", icon: "https://cdn-icons-png.flaticon.com/512/2382/2382533.png" }
+    ],
+    "Soft Skills": [
+      { name: "Problem-Solving", icon: "https://cdn-icons-png.flaticon.com/512/4133/4133589.png" },
+      { name: "Critical Thinking", icon: "https://cdn-icons-png.flaticon.com/512/2797/2797387.png" },
+      { name: "Communication", icon: "https://cdn-icons-png.flaticon.com/512/745/745205.png" },
+      { name: "Attention to Detail", icon: "https://cdn-icons-png.flaticon.com/512/4149/4149677.png" }
+    ]
   };
 
   const experiences = [
