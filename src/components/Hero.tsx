@@ -148,7 +148,7 @@ const Hero: React.FC<HeroProps> = () => {
           }}
         >
           <motion.div 
-            className="relative w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 transform-gpu"
+            className="relative w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 transform-gpu aspect-square p-0.5"
             style={{
               rotateX: rotateX,
               rotateY: rotateY,
@@ -194,7 +194,7 @@ const Hero: React.FC<HeroProps> = () => {
 
             {/* Image container with 3D effect */}
             <motion.div
-              className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20"
+              className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20 bg-purple-900/20"
               style={{
                 transform: "translateZ(0px)",
               }}
@@ -202,7 +202,11 @@ const Hero: React.FC<HeroProps> = () => {
               <motion.img
                 src="/images/Ayaan Akkalkot.png"
                 alt="Ayaan Akkalkot"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center scale-[1.02]"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center 10%"
+                }}
                 animate={{
                   scale: isHovered ? 1.1 : [1, 1.05, 1],
                 }}
