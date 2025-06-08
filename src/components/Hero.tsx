@@ -146,7 +146,7 @@ const Hero: React.FC<HeroProps> = () => {
           }}
         >
           <motion.div 
-            className="relative w-64 h-64 transform-gpu"
+            className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 transform-gpu"
             style={{
               rotateX: rotateX,
               rotateY: rotateY,
@@ -160,7 +160,7 @@ const Hero: React.FC<HeroProps> = () => {
           >
             {/* 3D floating effect layers */}
             <motion.div
-              className="absolute -inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
+              className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
               style={{
                 transform: "translateZ(-40px)",
               }}
@@ -178,7 +178,7 @@ const Hero: React.FC<HeroProps> = () => {
 
             {/* Constant white glow */}
             <motion.div 
-              className="absolute -inset-6 bg-white/20 rounded-full blur-3xl"
+              className="absolute -inset-3 sm:-inset-4 md:-inset-6 bg-white/20 rounded-full blur-3xl"
               style={{ transform: "translateZ(-20px)" }}
               animate={{
                 opacity: [0.2, 0.3, 0.2],
@@ -228,7 +228,7 @@ const Hero: React.FC<HeroProps> = () => {
             </motion.div>
 
             {/* Image container with 3D effect */}
-            <motion.div 
+            <motion.div
               className="relative z-10 w-full h-full rounded-full overflow-hidden ring-2 ring-white/20"
               style={{
                 transform: "translateZ(0px)",
@@ -237,7 +237,7 @@ const Hero: React.FC<HeroProps> = () => {
               <motion.img
                 src="/images/Ayaan Akkalkot.png"
                 alt="Ayaan Akkalkot"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
                 animate={{
                   scale: isHovered ? 1.1 : [1, 1.05, 1],
                 }}
