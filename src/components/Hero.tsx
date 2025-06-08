@@ -137,7 +137,7 @@ const Hero: React.FC<HeroProps> = () => {
 
         {/* 3D Image with enhanced effects */}
         <motion.div 
-          className="flex justify-center mb-8 sm:mb-16 perspective-1000"
+          className="flex justify-center items-center w-full mb-8 sm:mb-16 perspective-1000"
           variants={fadeInUp}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
@@ -148,7 +148,7 @@ const Hero: React.FC<HeroProps> = () => {
           }}
         >
           <motion.div 
-            className="relative w-40 h-40 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 transform-gpu"
+            className="relative w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 transform-gpu"
             style={{
               rotateX: rotateX,
               rotateY: rotateY,
@@ -162,7 +162,7 @@ const Hero: React.FC<HeroProps> = () => {
           >
             {/* 3D floating effect layers */}
             <motion.div
-              className="absolute -inset-3 xs:-inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
+              className="absolute -inset-2 xs:-inset-3 sm:-inset-4 md:-inset-6 lg:-inset-8 bg-gradient-to-r from-purple-500/20 via-transparent to-blue-500/20 rounded-full blur-xl"
               style={{
                 transform: "translateZ(-40px)",
               }}
